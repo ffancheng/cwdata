@@ -17,3 +17,9 @@ URL: https://github.com/ffancheng/cwdata
 BugReports: https://github.com/ffancheng/cwdata/issues
 Depends: 
     R (>= 2.10)
+Suggests: 
+    rmarkdown,
+    knitr,
+    ggplot2,
+    tidyverse
+VignetteBuilder: knitr

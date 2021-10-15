@@ -1,0 +1,48 @@
+---
+title: "Our World in Data: Key Crop Yields"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Our World in Data: Key Crop Yields}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, message=FALSE}
+library(cwdata)
+library(ggplot2)
+library(tidyverse)
+```
+
+# Description
+
+This data set is about the world's key crop fields from 1961 to 2018. The data source is [Our World in Data](URL). It has `nrow(key_crop_yields)` rows and `ncol(key_crop_yields)` columns. The variables are about ... You can take a look of the data as below.
+
+```{r}
+key_crop_yields
+```
+
+
+# Examples
+
+Examples with ggplots demonstrating how to use the package functions/datasets.
+
+We could explore which kind of key crops has the highest production.
+
+```{r bar}
+key_crop_yields %>% 
+  filter(year == 2017) %>% 
+  group_by(crop) %>% 
+  summarise(tonnes_per_hectare = sum(tonnes_per_hectare, na.rm = TRUE)) %>% 
+  ggplot(aes(x = forcats::fct_reorder(crop, desc(tonnes_per_hectare)), 
+             y = tonnes_per_hectare)) + 
+  geom_col() + 
+  theme_bw() + 
+  labs(x = "Crop", y = "Tonnes per hectare", title = "World's key crops production in 2017", caption = "Potatoes has the highest production")
+```
